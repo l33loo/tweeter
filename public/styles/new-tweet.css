@@ -1,0 +1,34 @@
+h2 {
+  text-align: left;
+  border-bottom: 1px solid black
+  /*position: relative;*/
+}
+
+textarea {
+  width: 100%;
+  padding: 5px;
+  /*position: relative;*/
+}
+
+section.new-tweet {
+  margin: 0 auto;
+  width: 90%;
+  padding: 1em;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+  background-color: lightgrey;
+  /*position: relative;*/
+}
+
+.counter {
+  float: right;
+  font-style: italic;
+  font-size: 15px;
+  /*position: relative;*/
+}
+
+.container input {
+  /*float: left;*/
+  /*position: relative;*/
+}
+
