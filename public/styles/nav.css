@@ -14,7 +14,6 @@
 
 #nav-bar .logo {
     border-style: none;
-    /*margin-top: 10px;*/
     width: 80px;
     height: 80px;
     float: left;
@@ -25,7 +24,6 @@
 #nav-bar .header {
     padding-left: 10px;
     position: relative;
-    /*top: 30px;*/
     text-align: bottom;
     float: left;
     line-height: 80px;

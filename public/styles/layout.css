@@ -4,21 +4,6 @@
  * Do not modify these two selectors, please
  */
 
-nav {
-  background-color: darkslategrey;
-  color: whitesmoke;
-  font-size: 60px;
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-}
-
-nav .header {
-    padding-left: 20px;
-    position: relative;
-}
-
 html {
   box-sizing: border-box;
 }
@@ -37,6 +22,14 @@ body {
   font-family: 'Roboto Condensed', sans-serif;
 }
 
+main {
+  width: 450px;
+  background-color: white;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 140px
+}
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
