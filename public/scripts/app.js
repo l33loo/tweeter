@@ -6,25 +6,20 @@
 
 // Hightlight tweet when hover over it
 $(document).ready(function() {
-  $("article.tweet").hover(
-    function() {
+  $(".tweets-container").on("mouseenter", ".tweet", function() {
+      console.log("BLAH");
       $(this).attr("id", "hover");
-      $("article.tweet footer").append(`
+      $(this).find("footer").append(`
         <span class="hover">
           <img src="images/flag.png" alt="Share button" />
           <img src="images/share.png" alt="Flag button" />
           <img src="images/like.png" alt="Like button" />
         </span>`);
-    }, function() {
-      $(this).attr("id", null);
-      $("span.hover").remove();
-    }
-
-    //   $(this).addClass("hover");
-    // }, function() {
-    //   $(this).removeClass("hover");
-    // }
-  );
+  });
+  $(".tweets-container").on("mouseleave", ".tweet", function() {
+        $(this).attr("id", null);
+        $(this).find("span.hover").remove();
+  });
 });
 
 // TEST addition of new tweet
@@ -52,7 +47,7 @@ function createTweetElement(tweet) {
     <header>
       <img src="${tweet.user.avatars.small}" alt="Avatar"/>
       <span class="name">${tweet.user.name}</span>
-      <span class="username">${tweet.user.handle}</span>
+      <span class="handler">${tweet.user.handle}</span>
     </header>
       <p>${tweet.content.text}</p>
       <footer>
