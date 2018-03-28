@@ -23,13 +23,18 @@ body {
 }
 
 main {
-  padding-top: 50px;
   width: 450px;
-  background-color: white;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 80px
+  padding-top: 80px;
+  padding-left: 2em;
+  padding-right: 2em;
+  background-color: white
 }
 /*
  * Additional CSS can be defined below or in other CSS files, as per instructions
  */
+
+/* * {
+  border: 2px solid red;
+}*/
