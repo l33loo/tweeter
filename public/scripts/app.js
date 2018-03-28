@@ -9,10 +9,15 @@ $(document).ready(function() {
   $("article.tweet").hover(
     function() {
       $(this).attr("id", "hover");
-      $("article.tweet footer").attr("id", "hover-footer");
+      $("article.tweet footer").append(`
+        <span class="hover">
+          <img src="images/flag.png" alt="Share button" />
+          <img src="images/share.png" alt="Flag button" />
+          <img src="images/like.png" alt="Like button" />
+        </span>`);
     }, function() {
       $(this).attr("id", null);
-      $("article.tweet footer").attr("id", null);
+      $("span.hover").remove();
     }
 
     //   $(this).addClass("hover");
@@ -21,3 +26,4 @@ $(document).ready(function() {
     // }
   );
 });
+

@@ -68,3 +68,13 @@ article.tweet footer {
   opacity: 1.0;
   border: 1px solid #244751;
 }
+
+span.hover {
+  float: right;
+}
+
+span.hover img {
+  width: 20px;
+  height: 20px;
+  padding: 2px;
+}
