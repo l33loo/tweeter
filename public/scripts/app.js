@@ -52,7 +52,6 @@ $(document).ready(function() {
 
   // Hightlight tweet when hover over it
   $(".tweets-container").on("mouseenter", ".tweet", function() {
-    console.log("BLAH");
     $(this).attr("id", "hover");
     $(this).find("footer").append(`
       <span class="hover">
@@ -66,7 +65,7 @@ $(document).ready(function() {
     $(this).find("span.hover").remove();
   });
 
-  function loadTweets(tweetsArr) {
+  function loadTweets() {
     $.get("/tweets").done(function(tweetsArr){
       renderTweets(tweetsArr);
       $("textarea").val("");
@@ -80,6 +79,19 @@ $(document).ready(function() {
     console.log('Button clicked, performing ajax call...');
     let data = $(tweet).serialize();
     console.log(data.length);
-    $.post("/tweets", data).done(loadTweets);
+    let ajax = $.post("/tweets", data).done(loadTweets);
+    if (data) {
+      if (data.length <= 140) {
+        ajax;
+      } else {
+        ajax.abort();
+        let errorMsg = $("<span>").addClass("error").append("Your tweet exceeds the 140-character limit.");
+        $("form input").append(errorMsg);
+      }
+    } else {
+      ajax.abort();
+      let errorMsg = $("<span>").addClass("error").append("You must enter text in order to submit a tweet.");
+      $("form input").append(errorMsg);
+    }
   });
 });
