@@ -59,6 +59,18 @@ function renderTweets(arr) {
 
 $(document).ready(function() {
 
+  $(".nav-bar .compose-bttn").on("mouseenter", function() {
+    $(this).attr("id", "bttn-hover");
+  });
+  $(".nav-bar .compose-bttn").on("mouseleave", function() {
+    $(this).attr("id", null);
+    $(this).find(".bttn-hover").remove();
+  });
+
+   $(".nav-bar .compose-bttn").on("click", function() {
+    $(".new-tweet").toggle();
+    $("textarea").focus()
+;  });
   // Hightlight tweet when hover over it
   $(".tweets-container").on("mouseenter", ".tweet", function() {
     $(this).attr("id", "hover");
