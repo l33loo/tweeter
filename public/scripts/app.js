@@ -66,16 +66,18 @@ $(document).ready(function() {
     $(this).find("span.hover").remove();
   });
 
+  function loadTweets(tweetsArr) {
+    $.get("/tweets").done(function(tweetsArr){
+      renderTweets(tweetsArr);
+      $("textarea").val("");
+    });
+  }
+
   var tweet = $(".new-tweet form");
   $(tweet).on('submit', function(event) {
     event.preventDefault();
     console.log('Button clicked, performing ajax call...');
     let data = $(tweet).serialize();
-    $.post("/tweets", data).done(function() {
-      $.get("/tweets").done(function(tweetsArr){
-        renderTweets(tweetsArr);
-        $("textarea").val("");
-      });
-    });
+    $.post("/tweets", data).done(loadTweets);
   });
 });
