@@ -26,7 +26,14 @@ function daysAgo(date) {
   }
 }
 
+function escape(str) {
+  var div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
 function createTweetElement(tweet) {
+  var tweetText = escape(tweet.content.text);
   var $tweet = $("<article>").addClass("tweet").append(`
     <header>
     <div>
@@ -35,11 +42,11 @@ function createTweetElement(tweet) {
       <span class="handler">${tweet.user.handle}</span>
     </div>
     </header>
-      <p>${tweet.content.text}</p>
-      <footer>
-        Posted ${daysAgo(tweet.created_at)}
-      </footer>
-    `);
+    <p class="tweet-text">${tweetText}</p>
+    <footer>
+      Posted ${daysAgo(tweet.created_at)}
+    </footer>
+  `);
   return $tweet;
 }
 
