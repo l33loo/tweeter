@@ -94,4 +94,5 @@ $(document).ready(function() {
       $("form input").append(errorMsg);
     }
   });
+  loadTweets();
 });
