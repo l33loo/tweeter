@@ -70,6 +70,7 @@ $(document).ready(function() {
     $.get("/tweets").done(function(tweetsArr){
       renderTweets(tweetsArr);
       $("textarea").val("");
+      $(".counter").text(140);
     });
   }
 
@@ -78,6 +79,7 @@ $(document).ready(function() {
     event.preventDefault();
     console.log('Button clicked, performing ajax call...');
     let data = $(tweet).serialize();
+    console.log(data.length);
     $.post("/tweets", data).done(loadTweets);
   });
 });
