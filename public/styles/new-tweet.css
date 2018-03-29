@@ -27,3 +27,7 @@ textarea {
 .over-char-limit {
   color: red;
 }
+
+.error {
+  color: red;
+}

@@ -29,9 +29,11 @@ function daysAgo(date) {
 function createTweetElement(tweet) {
   var $tweet = $("<article>").addClass("tweet").append(`
     <header>
+    <div>
       <img src="${tweet.user.avatars.small}" alt="Avatar"/>
       <span class="name">${tweet.user.name}</span>
       <span class="handler">${tweet.user.handle}</span>
+    </div>
     </header>
       <p>${tweet.content.text}</p>
       <footer>
@@ -42,7 +44,7 @@ function createTweetElement(tweet) {
 }
 
 function renderTweets(arr) {
-  arr.forEach(function(element) {
+  arr.reverse().forEach(function(element) {
     let $tweet = createTweetElement(element);
     $(".tweets-container").append($tweet);
   });
@@ -67,32 +69,30 @@ $(document).ready(function() {
 
   function loadTweets() {
     $.get("/tweets").done(function(tweetsArr){
+      $(".tweets-container").children().remove();
       renderTweets(tweetsArr);
-      $("textarea").val("");
-      $(".counter").text(140);
     });
   }
 
-  var tweet = $(".new-tweet form");
-  $(tweet).on('submit', function(event) {
-    event.preventDefault();
+var tweet = $(".new-tweet form");
+
+$(tweet).on('submit', function(event) {
+  event.preventDefault();
+  let data = $(tweet).serialize();
+  let counter = parseInt($(".counter").text());
+  if (counter >= 0 && counter < 140) {
+    $("textarea").val("");
+    $(".counter").text(140);
+    $("span.error").remove();
     console.log('Button clicked, performing ajax call...');
-    let data = $(tweet).serialize();
-    console.log(data.length);
-    let ajax = $.post("/tweets", data).done(loadTweets);
-    if (data) {
-      if (data.length <= 140) {
-        ajax;
-      } else {
-        ajax.abort();
-        let errorMsg = $("<span>").addClass("error").append("Your tweet exceeds the 140-character limit.");
-        $("form input").append(errorMsg);
-      }
-    } else {
-      ajax.abort();
-      let errorMsg = $("<span>").addClass("error").append("You must enter text in order to submit a tweet.");
-      $("form input").append(errorMsg);
-    }
-  });
+    $.post("/tweets", data).done(loadTweets);
+  } else if (counter < 0) {
+    $("span.error").remove();
+    $("form").append("<span class='error'>Your tweet exceeds the 140-character limit.</span>");
+  } else {
+    $("span.error").remove();
+    $("form").append("<span class='error'>You must enter text to submit a tweet.</span>");
+  }
+});
   loadTweets();
 });
