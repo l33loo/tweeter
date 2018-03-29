@@ -32,7 +32,3 @@ app.use("/tweets", tweetsRoutes);
 app.listen(PORT, () => {
   console.log("Tweeter app listening on port " + PORT);
 });
-
-app.post("/tweets", (req, res) => {
-
-});
