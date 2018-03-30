@@ -36,11 +36,9 @@ function createTweetElement(tweet) {
   var tweetText = escape(tweet.content.text);
   var $tweet = $("<article>").addClass("tweet").append(`
     <header>
-    <div>
       <img src="${tweet.user.avatars.small}" alt="Avatar"/>
-      <span class="name">${tweet.user.name}</span>
+      <span class="username">${tweet.user.name}</span>
       <span class="handler">${tweet.user.handle}</span>
-    </div>
     </header>
     <p class="tweet-text">${tweetText}</p>
     <footer>
@@ -67,18 +65,19 @@ $(document).ready(function() {
     $(this).find(".bttn-hover").remove();
   });
 
-   $(".nav-bar .compose-bttn").on("click", function() {
-    $(".new-tweet").toggle();
-    $("textarea").focus()
-;  });
+  $(".new-tweet").hide();
+  $(".nav-bar .compose-bttn").on("click", function() {
+    $(".new-tweet").slideToggle(200);
+    $("textarea").focus();
+  });
   // Hightlight tweet when hover over it
   $(".tweets-container").on("mouseenter", ".tweet", function() {
     $(this).attr("id", "hover");
     $(this).find("footer").append(`
       <span class="hover">
-        <img src="images/flag.png" alt="Share button" />
-        <img src="images/share.png" alt="Flag button" />
-        <img src="images/like.png" alt="Like button" />
+        <i class="far fa-flag"></i>
+        <i class="fas fa-retweet"></i>
+        <i class="far fa-thumbs-up"></i>
       </span>`);
   });
   $(".tweets-container").on("mouseleave", ".tweet", function() {
