@@ -92,25 +92,31 @@ $(document).ready(function() {
     });
   }
 
-var tweet = $(".new-tweet form");
+  const tweet = $(".new-tweet form");
 
-$(tweet).on('submit', function(event) {
-  event.preventDefault();
-  let data = $(tweet).serialize();
-  let counter = parseInt($(".counter").text());
-  if (counter >= 0 && counter < 140) {
-    $("textarea").val("");
-    $(".counter").text(140);
-    $("span.error").remove();
-    console.log('Button clicked, performing ajax call...');
-    $.post("/tweets", data).done(loadTweets);
-  } else if (counter < 0) {
-    $("span.error").remove();
-    $("form").append("<span class='error'>Your tweet exceeds the 140-character limit.</span>");
-  } else {
-    $("span.error").remove();
-    $("form").append("<span class='error'>You must enter text to submit a tweet.</span>");
-  }
-});
+  $(tweet).on('submit', function(event) {
+    event.preventDefault();
+    const counter = parseInt($(".counter").text());
+    const data = $(tweet).serialize();
+    if (counter >= 0 && counter < 140) {
+      $("textarea").val("");
+      $(".counter").text(140);
+      $("span.error").remove();
+      console.log('Button clicked, performing ajax call...');
+      $.post("/tweets", data).done(loadTweets);
+    } else if (counter < 0) {
+      $("form").append(`
+          <span class='error'>
+            Your tweet exceeds the 140-character limit.
+          </span>
+        `);
+    } else {
+      $("form").append(`
+          <span class='error'>
+            You must enter text to submit a tweet.
+          </span>
+        `);
+    }
+  });
   loadTweets();
 });
