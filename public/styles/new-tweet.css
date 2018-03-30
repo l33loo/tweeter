@@ -1,5 +1,4 @@
 section.new-tweet {
-  /*margin-top: em;*/
   margin-bottom: 2em;
   padding: 1em;
   border: 1px solid #CCC;
@@ -7,9 +6,11 @@ section.new-tweet {
   background-color: #eee;
 }
 
-h2 {
-  text-align: left;
-  border-bottom: 1px solid black
+.new-tweet .compose {
+    font-size: 26px;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+    margin-bottom: 0.5em
 }
 
 textarea {
@@ -21,7 +22,8 @@ textarea {
   float: right;
   font-style: italic;
   font-size: 15px;
-  padding-bottom: 1em;
+  padding-top:3px;
+  padding-right: 0.5em;
 }
 
 .over-char-limit {

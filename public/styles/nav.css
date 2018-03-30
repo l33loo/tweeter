@@ -1,5 +1,5 @@
 .nav-bar {
-    background-color: #00a087;
+    background-color: #9333b3;
     position: fixed;
     left: 0;
     top: 0;
@@ -11,32 +11,28 @@
 }
 
 .nav-bar .logo {
-    border-style: none;
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     float: left;
-    position: relative;
-    vertical-align: bottom;
+    margin-top: 0.5em;
 }
 
 .nav-bar .header {
-    padding-left: 10px;
-    position: relative;
-    text-align: bottom;
+    padding: 15px;
     float: left;
-    line-height: 80px;
-    font-size: 40px;
-    color: #e8fdff;
+    font-size: 50px;
+    color: #fcfbfd;
+    font-weight: bold
 }
 
 .nav-bar .compose-bttn {
-    color: #00a087;
+    color: #9333b3;
     font-size: 20px;
-    width: 100px;
+    width: 130px;
     height: 50px;
-    background-color: #c1efe7;
+    background-color: #e7c7f3;
     float: right;
-    margin: 0.5em;
+    margin: 0.75em;
     text-align: center;
     border: 2px solid #244751;
     border-radius: 5px;
@@ -45,7 +41,6 @@
 
 #bttn-hover {
     color: #244751;
-    background-color: #e8fdff;
+    background-color: #fcfbfd;
     border: 2px solid #244751;
-    /*vertical-align: middle:*/
 }

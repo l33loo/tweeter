@@ -1,4 +1,4 @@
-article.tweet {
+.tweet {
   border: 1px solid #CCC;
   border-radius: 5px;
   margin-bottom: 1em;
@@ -6,7 +6,7 @@ article.tweet {
   background-color: #ffffff;
 }
 
-article.tweet header {
+.tweet header {
   margin: 0 auto;
   padding: 0.5em;
   border-top-left-radius: 5px;
@@ -15,26 +15,27 @@ article.tweet header {
   overflow: auto;
 }
 
-article.tweet header img {
+.tweet header img {
   width: 60px;
   height: 60px;
   float:left;
   border-radius: 5px;
 }
 
-article.tweet span.name {
-  padding-left: 0.5em;
+.tweet .username {
+  margin-left: 0.5em;
   float: left;
   font-size: 24px;
   font-weight: bold;
 }
 
-article.tweet span.handler {
+.tweet .handler {
   float: right;
-  font size: 10px
+  font size: 10px;
+  margin-top: 6px;
 }
 
-article .tweet-text {
+.tweet .tweet-text {
   font-size: 1em;
   margin: 0 auto;
   padding-left: 1em;
@@ -44,7 +45,7 @@ article .tweet-text {
 
 }
 
-article.tweet footer {
+.tweet footer {
   font-size: 12px;
   margin: 0 auto;
   padding-left: 1em;
@@ -61,12 +62,16 @@ article.tweet footer {
   border: 1px solid #244751;
 }
 
-span.hover {
+.tweet .hover {
   float: right;
+  font-size: 12px;
 }
 
-span.hover img {
-  width: 20px;
-  height: 20px;
-  padding: 2px;
+.tweet span.hover i {
+  padding-left: 0.5em;
+  font-size: 15px;
 }
+
+/*.tweet .hover i {
+  color: #9333b3;
+}*/
