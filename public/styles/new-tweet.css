@@ -1,4 +1,4 @@
-section.new-tweet {
+.new-tweet {
   margin-bottom: 2em;
   padding: 1em;
   border: 1px solid #CCC;
@@ -6,14 +6,14 @@ section.new-tweet {
   background-color: #eee;
 }
 
-.new-tweet .compose {
-    font-size: 26px;
-    font-weight: bold;
-    border-bottom: 1px solid black;
-    margin-bottom: 0.5em
+.compose {
+  font-size: 26px;
+  font-weight: bold;
+  border-bottom: 1px solid black;
+  margin-bottom: 0.5em
 }
 
-textarea {
+.new-tweet textarea {
   width: 100%;
   padding: 5px;
   overflow-y: scroll;
@@ -23,13 +23,9 @@ textarea {
   float: right;
   font-style: italic;
   font-size: 15px;
-  padding-top:3px;
+  padding-top: 3px;
 }
 
-.over-char-limit {
-  color: red;
-}
-
-.error {
+.over-char-limit, .error {
   color: red;
 }

@@ -1,60 +1,58 @@
 function getTimeSince(date) {
+  // Compute elapsed time in various units.
+  let min = (Date.now() - date) / (1000 * 60);
+  let hr = min / 60;
+  let day = hr / 24;
+  let week = day / 7;
+  let month = day / 30;
+  let yr = month / 12;
 
-  const min = Math.round((Date.now() - date) / (1000 * 60));
-  const hr = Math.round(min / 60);
-  const day = Math.round(hr / 24);
-  const week = Math.round(day / 7);
-  const month = Math.round(day / 30);
-  const yr = Math.round(month / 12);
+  min = Math.round(min);
+  hr = Math.round(hr);
+  day = Math.round(day);
+  week = Math.round(week);
+  month = Math.round(month);
+  yr = Math.round(yr);
 
   if (min === 0) {
     return "now";
   } else if (min === 1) {
-    return  "minute ago";
-  } else if (min < 60) {
+    return  "1 minute ago";
+  } else if (hr < 1) {
     return `${min} minutes ago`;
+  } else if (hr === 1) {
+    return "1 hour ago";
+  } else if (day < 1) {
+    return `${hr} hours ago`;
+  } else if (day === 1) {
+    return "1 day ago";
+  } else if (week < 1) {
+    return `${day} ago`;
+  } else if (week === 1) {
+    return "1 week ago";
+  } else if (month < 1) {
+    return `${week} ago`;
+  } else if (month === 1) {
+    return "1 month ago";
+  } else if (yr < 1) {
+    return `${month} months ago`;
+  } else if (yr === 1) {
+    return "1 year ago";
   } else {
-    if (hr === 1) {
-      return "1 hour ago";
-    } else if (hr < 24) {
-        return `${hr} hours ago`;
-    } else {
-      if (day === 1) {
-        return "1 day ago";
-      } else if (day < 30) {
-        return `${day} ago`;
-      } else {
-        if (week === 1) {
-          return "1 week ago";
-        } else if (week < 4.3) {
-          return `${week} ago`;
-        } else {
-          if (month === 1) {
-            return "1 month ago";
-          } else if (month < 12) {
-            return `${month} months ago`;
-          } else {
-            if (yr === 1) {
-              return "1 year ago";
-            } else {
-              return `${yr} years ago`;
-            }
-          }
-        }
-      }
-    }
+    return `${yr} years ago`;
   }
 }
 
+// Escape html code.
 function escape(str) {
-  var div = document.createElement('div');
+  let div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
 }
 
 function createTweetElement(tweet) {
-  var tweetText = escape(tweet.content.text);
-  var $tweet = $("<article>").addClass("tweet").append(`
+  const tweetText = escape(tweet.content.text);
+  let $tweet = $("<article>").addClass("tweet").append(`
     <header>
       <img src="${tweet.user.avatars.small}" alt="Avatar"/>
       <span class="username">${tweet.user.name}</span>
@@ -75,6 +73,7 @@ function renderTweets(arr) {
   });
 }
 
+// Replace displayed tweets with current database.
 function loadTweets() {
   $.get("/tweets").done(function(tweetsArr){
     $(".tweets-container").children().remove();
@@ -84,20 +83,23 @@ function loadTweets() {
 
 $(document).ready(function() {
 
-  $(".nav-bar .compose-bttn").on("mouseenter", function() {
+  // Compose-button hover.
+  $(".compose-bttn").on("mouseenter", function() {
     $(this).attr("id", "bttn-hover");
   });
-  $(".nav-bar .compose-bttn").on("mouseleave", function() {
+  $(".compose-bttn").on("mouseleave", function() {
     $(this).attr("id", null);
     $(this).find(".bttn-hover").remove();
   });
 
+  // Display of tweet submit form.
   $(".new-tweet").hide();
-  $(".nav-bar .compose-bttn").on("click", function() {
+  $(".compose-bttn").on("click", function() {
     $(".new-tweet").slideToggle(200);
-    $("textarea").focus();
+    $(".new-tweet textarea").focus();
   });
-  // Hightlight tweet when hover over it
+
+  // Tweet hover.
   $(".tweets-container").on("mouseenter", ".tweet", function() {
     $(this).attr("id", "hover");
     $(this).find("footer").append(`
@@ -112,32 +114,32 @@ $(document).ready(function() {
     $(this).find("span.hover").remove();
   });
 
-  const tweet = $(".new-tweet form");
-
+  // Form validation.
+  const tweet = $(".new-tweet");
   $(tweet).on('submit', function(event) {
     event.preventDefault();
     const counter = parseInt($(".counter").text());
     const data = $(tweet).serialize();
     if (counter >= 0 && counter < 140) {
-      $("textarea").val("");
+      $(this).grandchild("textarea").val("");
       $(".counter").text(140);
-      $("span.error").remove();
-      console.log('Button clicked, performing ajax call...');
       $.post("/tweets", data).done(loadTweets);
     } else if (counter < 0) {
-      $("span.error").remove();
-      $("form").append(`
+      $(".error").remove();
+      $(".new-tweet").append(`
           <span class='error'>
             Your tweet exceeds the 140-character limit.
           </span>
         `);
+      $(".new-tweet textarea").focus();
     } else {
-      $("span.error").remove();
+      $(".error").remove();
       $("form").append(`
-          <span class='error'>
+          <span class='submit error'>
             You must enter text to submit a tweet.
           </span>
         `);
+      $("textarea").focus();
     }
   });
   loadTweets();
