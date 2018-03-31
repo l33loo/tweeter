@@ -1,28 +1,48 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
+function getTimeSince(date) {
 
-function daysAgo(date) {
+  const min = Math.round((Date.now() - date) / (1000 * 60));
+  const hr = Math.round(min / 60);
+  const day = Math.round(hr / 24);
+  const week = Math.round(day / 7);
+  const month = Math.round(day / 30);
+  const yr = Math.round(month / 12);
 
-  // Calculate the number of days from milliseconds
-  let msecInADay = 1000 * 60 * 60 * 24;
-
-  let dayElapsed = Math.round((Date.now() - date) / msecInADay);
-  if (dayElapsed >= 365) {
-    let years = Math.round(dayElapsed / 365);
-    if (years === 1) {
-      return "a year ago";
+  if (min === 0) {
+    return "now";
+  } else if (min === 1) {
+    return  "minute ago";
+  } else if (min < 60) {
+    return `${min} minutes ago`;
+  } else {
+    if (hr === 1) {
+      return "1 hour ago";
+    } else if (hr < 24) {
+        return `${hr} hours ago`;
     } else {
-      return `${years} years ago`;
+      if (day === 1) {
+        return "1 day ago";
+      } else if (day < 30) {
+        return `${day} ago`;
+      } else {
+        if (week === 1) {
+          return "1 week ago";
+        } else if (week < 4.3) {
+          return `${week} ago`;
+        } else {
+          if (month === 1) {
+            return "1 month ago";
+          } else if (month < 12) {
+            return `${month} months ago`;
+          } else {
+            if (yr === 1) {
+              return "1 year ago";
+            } else {
+              return `${yr} years ago`;
+            }
+          }
+        }
+      }
     }
-  } else if (dayElapsed > 1) {
-    return `${dayElapsed} days ago`;
-  } else if (dayElapsed === 1) {
-    return "yesterday";
-  } else if (!dayElapsed) {
-    return "today";
   }
 }
 
@@ -42,7 +62,7 @@ function createTweetElement(tweet) {
     </header>
     <p class="tweet-text">${tweetText}</p>
     <footer>
-      Posted ${daysAgo(tweet.created_at)}
+      Posted ${getTimeSince(tweet.created_at)}
     </footer>
   `);
   return $tweet;
@@ -52,6 +72,13 @@ function renderTweets(arr) {
   arr.reverse().forEach(function(element) {
     let $tweet = createTweetElement(element);
     $(".tweets-container").append($tweet);
+  });
+}
+
+function loadTweets() {
+  $.get("/tweets").done(function(tweetsArr){
+    $(".tweets-container").children().remove();
+    renderTweets(tweetsArr);
   });
 }
 
@@ -85,13 +112,6 @@ $(document).ready(function() {
     $(this).find("span.hover").remove();
   });
 
-  function loadTweets() {
-    $.get("/tweets").done(function(tweetsArr){
-      $(".tweets-container").children().remove();
-      renderTweets(tweetsArr);
-    });
-  }
-
   const tweet = $(".new-tweet form");
 
   $(tweet).on('submit', function(event) {
@@ -105,12 +125,14 @@ $(document).ready(function() {
       console.log('Button clicked, performing ajax call...');
       $.post("/tweets", data).done(loadTweets);
     } else if (counter < 0) {
+      $("span.error").remove();
       $("form").append(`
           <span class='error'>
             Your tweet exceeds the 140-character limit.
           </span>
         `);
     } else {
+      $("span.error").remove();
       $("form").append(`
           <span class='error'>
             You must enter text to submit a tweet.
