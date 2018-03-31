@@ -121,7 +121,7 @@ $(document).ready(function() {
     const counter = parseInt($(".counter").text());
     const data = $(tweet).serialize();
     if (counter >= 0 && counter < 140) {
-      $(this).grandchild("textarea").val("");
+      $(this).find("textarea").val("");
       $(".counter").text(140);
       $.post("/tweets", data).done(loadTweets);
     } else if (counter < 0) {
