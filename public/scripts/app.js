@@ -115,7 +115,7 @@ $(document).ready(function() {
   });
 
   // Form validation.
-  const tweet = $(".new-tweet");
+const tweet = $(".new-tweet form");
   $(tweet).on('submit', function(event) {
     event.preventDefault();
     const counter = parseInt($(".counter").text());
